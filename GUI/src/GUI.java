@@ -6,6 +6,7 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.util.Arrays;
 import java.util.Vector;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
@@ -18,7 +19,7 @@ public class GUI {
 	public void solicitacaoPing(String enderecoIP)
 	throws UnknownHostException, IOException{
 		InetAddress vivver = InetAddress.getByName(enderecoIP);
-		System.out.println("Enviando solicitacao de ping para " + enderecoIP);
+		//System.out.println("Enviando solicitacao de ping para " + enderecoIP);
 		if(vivver.isReachable(5000)){
 			System.out.println(sucesso);
 			
@@ -66,8 +67,6 @@ public class GUI {
 		JLabel labelB = new JLabel();
 		JButton button1 = new JButton("Iniciar verificação");
 		JScrollPane scroll = new JScrollPane();
-		JScrollPane scroll2 = new JScrollPane();
-		
 		
 		textArea = new JTextArea();
 		textArea.setEditable(false);
@@ -108,32 +107,6 @@ public class GUI {
 			e.printStackTrace();
 		}
 		
-		/*File arquivo2 = new File("clientes.txt");
-		try {
-			if(!arquivo2.exists()){
-				System.out.println("Arquivo não encontrado");
-			}
-			FileReader fr = new FileReader(arquivo2);
-			BufferedReader br = new BufferedReader(fr);
-		
-			Vector<String> linhas = new Vector<String>();
-			String linha = "";
-			while((linha = br.readLine()) != null) {
-				linhas.add(linha);
-			}
-			JList<String> lista = new JList<String>(linhas);
-			lista.setForeground(Color.black);
-			lista.setFont(new Font("Lucida console", Font.PLAIN, 14));
-			lista.setBackground(new Color(0xeeeeee));
-			lista.setBorder(BorderFactory.createEmptyBorder());
-			lista.setSelectionBackground(new Color(0xeeeeee));
-			scroll2.setViewportView(lista);
-		
-			br.close();
-		}catch(Exception e) {
-			e.printStackTrace();
-		} */
-		
 		button1.setVisible(true);
 		button1.setPreferredSize(new Dimension(0, 40));
 		button1.setFocusable(false);
@@ -152,7 +125,7 @@ public class GUI {
 		button1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource()==button1) {
-					printLog();
+					
 					File arquivo = new File("clientes.txt");
 					try{
 						if(!arquivo.exists()){
@@ -160,6 +133,7 @@ public class GUI {
 						}
 						FileReader fr = new FileReader(arquivo);
 						BufferedReader br = new BufferedReader(fr);
+						printLog();
 						while(br.ready()){
 							i++;
 							String linha = br.readLine();
@@ -168,13 +142,37 @@ public class GUI {
 								InetAddress endereco = InetAddress.getByName(url.getHost());
 								String temp = endereco.toString();
 								String ip = temp.substring(temp.indexOf("/")+1, temp.length());
-								System.out.println(url);
+								//System.out.print(url + "  ...........  ");
+								if(url.toString().length() < 60) {
+									int numPontos = 60 - url.toString().length();
+									String original = "";
+									char c = '.';
+									
+									char[] repeat = new char[numPontos];
+									Arrays.fill(repeat, c);
+									original += new String(repeat);
+									System.out.print(url + "  " + original + "  ");
+								}
+								else {
+									System.out.print(url);
+								}
 								solicitacaoPing(ip);
 								//System.out.println(i);
 								
 							}catch(UnknownHostException e2){
-								System.out.println(url + " - Host invalido");
-								//System.out.println(e);
+								if(url.toString().length() < 60) {
+									int numPontos = 60 - url.toString().length();
+									String original = "";
+									char c = '.';
+									
+									char[] repeat = new char[numPontos];
+									Arrays.fill(repeat, c);
+									original += new String(repeat);
+									System.out.print(url + "  " + original + "  Host invalido");
+								}
+								else {
+									System.out.print(url);
+								}
 							}
 						}
 						br.close();
@@ -190,15 +188,6 @@ public class GUI {
 		scroll.setBorder(BorderFactory.createEmptyBorder());
 		scroll.getVerticalScrollBar().setBackground(new Color(0xcccccc));
 		scroll.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
-			protected void configureScrollBarColors() {
-				this.thumbColor = new Color(0x01659e);
-			}
-		});
-		
-		scroll2.setBorder(BorderFactory.createEmptyBorder());
-		scroll2.getVerticalScrollBar().setBackground(new Color(0xeeeeee));
-		scroll2.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-		scroll2.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
 			protected void configureScrollBarColors() {
 				this.thumbColor = new Color(0x01659e);
 			}
@@ -227,7 +216,17 @@ public class GUI {
 		panel1.setLayout(new BorderLayout());
 		panel1.add(labelB, BorderLayout.NORTH);
 		//panel1.add(scroll2, BorderLayout.CENTER);
-		panel1.add(new JScrollPane(textArea));
+		JScrollPane scroll2 = new JScrollPane(textArea);
+		scroll2.setPreferredSize(new Dimension(20,0));
+		scroll2.setBorder(BorderFactory.createEmptyBorder());
+		scroll2.getVerticalScrollBar().setBackground(new Color(0xeeeeee));
+		scroll2.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+			protected void configureScrollBarColors() {
+				this.thumbColor = new Color(0x01659e);
+			}
+		});
+		
+		panel1.add(scroll2);
 		
 		panel2.setBackground(new Color(0xcccccc));
 		panel2.setPreferredSize(new Dimension(200, 0));
@@ -256,6 +255,7 @@ public class GUI {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(1000,600);
 		frame.setIconImage(icon.getImage());
+		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 	}
 }
