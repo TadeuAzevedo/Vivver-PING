@@ -35,8 +35,8 @@ public class GUIteste {
 	
 	GUIteste(){
 	
-		ImageIcon icon = new ImageIcon("transparentVV.png");
-		ImageIcon logo = new ImageIcon("logo.png");
+		ImageIcon icon = new ImageIcon("img/transparentVV.png");
+		ImageIcon logo = new ImageIcon("img/logo.png");
 		Image image = logo.getImage();
 		Image novaImg = image.getScaledInstance(200, 55, java.awt.Image.SCALE_SMOOTH);
 		logo = new ImageIcon(novaImg);
@@ -59,7 +59,7 @@ public class GUIteste {
 		tp.setBackground(null);
 		tp.setBorder(new EmptyBorder(10,10,10,10));
 		
-		File arquivo1 = new File("teste1.csv");
+		File arquivo1 = new File("clientes.csv");
 		try {
 			if(!arquivo1.exists()){
 				System.out.println("Arquivo não encontrado");
@@ -176,7 +176,7 @@ public class GUIteste {
 			public void actionPerformed(ActionEvent e) {
 				if(e.getSource()==button1) {
 					tp.setText("");
-					File arquivo = new File("teste1.csv");
+					File arquivo = new File("clientes.csv");
 					try{
 						if(!arquivo.exists()){
 							//System.out.println("Arquivo não encontrado");
