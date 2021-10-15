@@ -3,6 +3,7 @@ import javax.swing.border.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
@@ -21,15 +22,30 @@ public class GUIteste {
 	int i = 0;
 	String sucesso = "Host disponivel\n\n";
 	String falha = "Host invalido\n\n";
-	JTextArea textArea;
+	JTextPane tp = new JTextPane();
+	URL url;
+	String original = "";
 	
 	public void solicitacaoPing(String enderecoIP)
 	throws UnknownHostException, IOException{
 		InetAddress vivver = InetAddress.getByName(enderecoIP);
-		if(vivver.isReachable(5000)){
-			System.out.println(i + " Teste");
-		}else{
-			System.out.println("Ping não alcançável");
+		String ip = vivver.toString();
+		ip = ip.replace("/","");
+		
+		if(vivver.isReachable(20)){
+			//System.out.println(url + " " +  ip + " - até 20ms");
+		}else if(vivver.isReachable(30)){
+			//System.out.println(url + " " + ip + " - até 30ms");
+		}else if(vivver.isReachable(40)){
+			//System.out.println(url + " " + ip + " - até 40ms");
+		}else if(vivver.isReachable(50)){
+			//System.out.println(url + " " + ip + " - até 50ms");
+		}else if(vivver.isReachable(100)){
+			//System.out.println(url + " " + ip + " - até 100ms");
+			appendToPane(tp, url + "  " + original + " " + falha, new Color(0xdaa520));
+		}else {
+			//System.out.println(url + " " + ip + " - Lentidão no sistema");
+			appendToPane(tp, url + "  " + original + " " + falha, new Color(0xff8c00));
 		}
 	}
 	
@@ -52,10 +68,10 @@ public class GUIteste {
 		JLabel label2 = new JLabel("Verificador de Status", SwingConstants.CENTER);
 		JLabel label3 = new JLabel("Clientes", SwingConstants.CENTER);
 		JLabel labelB = new JLabel();
-		JButton button1 = new JButton("Iniciar verificação");
+		JButton button1 = new JButton("Verificação por ping");
+		JButton button3 = new JButton("Verificação por HTTP");
 		JButton button2 = new JButton("Limpar");
 		JScrollPane scroll = new JScrollPane();
-		JTextPane tp = new JTextPane();
 		tp.setBackground(null);
 		tp.setBorder(new EmptyBorder(10,10,10,10));
 		
@@ -103,12 +119,11 @@ public class GUIteste {
 											String ip = temp.substring(temp.indexOf("/")+1, temp.length());
 											if(url.toString().length() < 70) {
 												int numPontos = 70 - url.toString().length();
-												String original = "";
 												char c = '.';
 																			
 												char[] repeat = new char[numPontos];
 												Arrays.fill(repeat, c);
-												original += new String(repeat);
+												original = new String(repeat);
 												//System.out.print(url + "  " + original + " " + sucesso);
 												appendToPane(tp, url + "  " + original + " " + sucesso, new Color(0x259821));
 											}
@@ -119,12 +134,11 @@ public class GUIteste {
 										}catch(UnknownHostException e2){
 											if(url.toString().length() < 70) {
 												int numPontos = 70 - url.toString().length();
-												String original = "";
 												char c = '.';
 												
 												char[] repeat = new char[numPontos];
 												Arrays.fill(repeat, c);
-												original += new String(repeat);
+												original = new String(repeat);
 												//System.out.println(url + "  " + original + " " + falha);
 												appendToPane(tp, url + "  " + original + " " + falha, Color.red);
 											}
@@ -157,7 +171,7 @@ public class GUIteste {
 		}
 		
 		button1.setVisible(true);
-		button1.setPreferredSize(new Dimension(0, 40));
+		button1.setPreferredSize(new Dimension(375, 40));
 		button1.setFocusable(false);
 		button1.setFont(new Font("Arial", Font.BOLD, 20));
 		button1.setForeground(new Color(0xeeeeee));
@@ -187,7 +201,7 @@ public class GUIteste {
 						while(br.ready()){
 							String linha = br.readLine();
 							String[] partes = linha.split(";");
-							URL url = new URL(partes[2]);
+							url = new URL(partes[2]);
 							try{
 								InetAddress endereco = InetAddress.getByName(url.getHost());
 								String temp = endereco.toString();
@@ -195,12 +209,12 @@ public class GUIteste {
 								//System.out.print(url + "  ...........  ");
 								if(url.toString().length() < 70) {
 									int numPontos = 70 - url.toString().length();
-									String original = "";
+									
 									char c = '.';
 									
 									char[] repeat = new char[numPontos];
 									Arrays.fill(repeat, c);
-									original += new String(repeat);
+									original = new String(repeat);
 									//System.out.print(url + "  " + original + " " + sucesso);
 									appendToPane(tp, url + "  " + original + " " + sucesso, new Color(0x259821));
 								}
@@ -213,12 +227,12 @@ public class GUIteste {
 							}catch(UnknownHostException e2){
 								if(url.toString().length() < 70) {
 									int numPontos = 70 - url.toString().length();
-									String original = "";
+									//String original = "";
 									char c = '.';
 									
 									char[] repeat = new char[numPontos];
 									Arrays.fill(repeat, c);
-									original += new String(repeat);
+									original = new String(repeat);
 									//System.out.println(url + "  " + original + " " + falha);
 									appendToPane(tp, url + "  " + original + " " + falha, Color.red);
 								}
@@ -227,6 +241,88 @@ public class GUIteste {
 								}
 							}
 						}
+						br.close();
+						fr.close();
+					}catch(IOException ex){
+						ex.printStackTrace();
+					}
+				}
+			}
+		});
+		
+		button3.setVisible(true);
+		button3.setPreferredSize(new Dimension(375, 40));
+		button3.setFocusable(false);
+		button3.setFont(new Font("Arial", Font.BOLD, 20));
+		button3.setForeground(new Color(0xeeeeee));
+		button3.setBackground(new Color(0x01659e));
+		button3.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		button3.addMouseListener(new java.awt.event.MouseAdapter() {
+			public void mouseEntered(java.awt.event.MouseEvent evt) {
+				button3.setBackground(new Color(0x259821));
+			}
+			public void mouseExited(java.awt.event.MouseEvent evt) {
+				button3.setBackground(new Color(0x01659e));
+			}
+		});
+		button3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(e.getSource()==button3) {
+					tp.setText("");
+					File arquivo = new File("clientes.csv");
+					try{
+						if(!arquivo.exists()){
+							appendToPane(tp, "Arquivo nao encontrado", Color.black);
+						}
+						FileReader fr = new FileReader(arquivo);
+						BufferedReader br = new BufferedReader(fr);
+						
+						Vector<String> linhas = new Vector<String>();
+						String linha = "";
+						
+						URL url = null;
+						
+						while((linha = br.readLine()) != null) {
+							String[] partes = linha.split(";");
+							linhas.add(partes[2]);
+							url = new URL(partes[2]);
+							HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+							connection.setRequestMethod("GET");
+							connection.connect();
+					
+							int code = connection.getResponseCode();
+							String string = connection.getResponseMessage();
+							
+							String codeS = String.valueOf(code);
+							
+							if(code == 200 || code == 301) {
+								if(url.toString().length() < 70) {
+									int numPontos = 70 - url.toString().length();
+									
+									char c = '.';
+									
+									char[] repeat = new char[numPontos];
+									Arrays.fill(repeat, c);
+									original = new String(repeat);
+									appendToPane(tp, url + "  " + original + " " + string + "\n\n", new Color(0x259821));
+								}
+							}else {
+								if(url.toString().length() < 70) {
+									int numPontos = 70 - url.toString().length();
+									
+									char c = '.';
+									
+									char[] repeat = new char[numPontos];
+									Arrays.fill(repeat, c);
+									original = new String(repeat);
+									appendToPane(tp, url + "  " + original + " " + string + "\n\n", Color.red);
+								}
+							}
+							
+							//System.out.println(url.toString() + " - " + code);
+							//System.out.println(url.toString() + " - " + string);
+						}
+						
 						br.close();
 						fr.close();
 					}catch(IOException ex){
@@ -274,8 +370,9 @@ public class GUIteste {
 		label3.setForeground(new Color(0x333333));
 		
 		labelB.setLayout(new BorderLayout());
-		labelB.add(button1, BorderLayout.NORTH);
-		labelB.setPreferredSize(new Dimension(0,40));
+		labelB.add(button1, BorderLayout.WEST);
+		labelB.add(button3, BorderLayout.EAST);
+		labelB.setPreferredSize(new Dimension(800,40));
 
 		panel5.setBorder(new EmptyBorder(5,5,0,5));
 		panel5.setBackground(new Color(0xcccccc));
