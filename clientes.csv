@@ -52,61 +52,60 @@
 52;Josenopolis;http://www.josenopolis-mg.vivver.com
 53;Lagoa da Prata;http://www.lagoadaprata-mg.vivver.com
 54;Lassance;http://lassance-mg.vivver.com
-55;Leme;http://www.leme-sp.vivver.com
-56;Leopoldina;http://www.leopoldina-mg.vivver.com
-57;Lima Duarte;http://www.limaduarte-mg.vivver.com
-58;Luz;http://www.luz-mg.vivver.com
-59;Machado;http://machado-mg.vivver.com
-60;Mantena;http://www.mantena-mg.vivver.com
-61;Maravilhas;http://www.maravilhas-mg.vivver.com
-62;Matozinhos;http://www.matozinhos-mg.vivver.com
-63;Monte Santo de Minas;http://www.montesantodeminas-mg.vivver.com
-64;Monte Siao;http://www.montesiao-mg.vivver.com
-65;Montes Claros;http://www.montesclaros-mg.vivver.com
-66;Munhoz;http://www.munhoz-mg.vivver.com
-67;Muriae;http://www.muriae-mg.vivver.com
-68;Nepomuceno;http://www.nepomuceno-mg.vivver.com
-69;Nova Lima;http://www.novalima-mg.vivver.com
-70;Nova Porteirinha;http://novaporteirinha-mg.vivver.com
-71;Novo Cruzeiro;http://www.novocruzeiro-mg.vivver.com
-72;Olaria;http://olaria-mg.vivver.com
-73;Olhos dagua;http://www.olhosdagua-mg.vivver.com
-74;Ouro Branco;http://www.ourobranco-mg.vivver.com
-75;Paracatu;http://www.paracatu-mg.vivver.com
-76;Paraguacu;http://www.paraguacu-mg.vivver.com
-77;Passos;http://www.passos-mg.vivver.com
-78;Patis;http://www.patis-mg.vivver.com
-79;Patos de Minas;http://www.patosdeminas-mg.vivver.com
-80;Pecanha;http://www.pecanha-mg.vivver.com
-81;Pintopolis;http://www.pintopolis-mg.vivver.com
-82;Pirapora;http://pirapora-mg.vivver.com
-83;Pitangueiras;http://www.pitangueiras-sp.vivver.com
-84;Piumhi;http://www.piumhi-mg.vivver.com
-85;Poco Fundo;http://www.pocofundo-mg.vivver.com
-86;Pompeu;http://www.pompeu-mg.vivver.com
-87;Ponto dos Volantes;http://www.pontodosvolantes-mg.vivver.com
-88;Pouso Alegre;http://www.pousoalegre-mg.vivver.com
-89;Rio Doce;http://www.riodoce-mg.vivver.com
-90;Rio Pardo de Minas;http://www.riopardodeminas-mg.vivver.com
-91;Salinas;http://www.salinas-mg.vivver.com
-92;Santa Barbara;http://www.santabarbara-mg.vivver.com
-93;Santa Cruz do Escalvado;http://santacruzdoescalvado-mg.vivver.com
-94;Santa Margarida;http://www.santamargarida-mg.vivver.com
-95;Santo Antonio do Monte;http://www.santoantoniodomonte-mg.vivver.com
-96;Sao Joao da Ponte;http://saojoaodaponte-mg.vivver.com
-97;Sao Joao Nepomuceno;http://www.saojoaonepomuceno-mg.vivver.com
-98;Sao Lourenco;http://saolourenco-mg.vivver.com
-99;Sao Romao;http://saoromao-mg.vivver.com
-100;Sao Sebastiao do Oeste;http://www.saosebastiaodooeste-mg.vivver.com
-101;Sao Sebastiao do Paraiso;http://www.saosebastiaodoparaiso-mg.vivver.com
-102;Sarzedo;http://www.sarzedo-mg.vivver.com
-103;Serrania;http://www.serrania-mg.vivver.com
-104;Sete Lagoas;http://www.setelagoas-mg.vmx.io
-105;Simao Pereira;http://simaopereira-mg.vivver.com
-106;Sorocaba;http://sisweb.sorocaba.sp.gov.br
-107;Taiobeiras;http://www.taiobeiras-mg.vivver.com
-108;Timoteo;http://timoteo-mg.vivver.com
-109;Ubai;http://www.ubai-mg.vivver.com
-110;Urucania;http://www.urucania-mg.vivver.com
-111;Varzea da palma;http://www.varzeadapalma-mg.vivver.com
-112;Vieiras;http://vieiras-mg.vivver.com
+55;Leopoldina;http://www.leopoldina-mg.vivver.com
+56;Lima Duarte;http://www.limaduarte-mg.vivver.com
+57;Luz;http://www.luz-mg.vivver.com
+58;Machado;http://machado-mg.vivver.com
+59;Mantena;http://www.mantena-mg.vivver.com
+60;Maravilhas;http://www.maravilhas-mg.vivver.com
+61;Matozinhos;http://www.matozinhos-mg.vivver.com
+62;Monte Santo de Minas;http://www.montesantodeminas-mg.vivver.com
+63;Monte Siao;http://www.montesiao-mg.vivver.com
+64;Montes Claros;http://www.montesclaros-mg.vivver.com
+65;Munhoz;http://www.munhoz-mg.vivver.com
+66;Muriae;http://www.muriae-mg.vivver.com
+67;Nepomuceno;http://www.nepomuceno-mg.vivver.com
+68;Nova Lima;http://www.novalima-mg.vivver.com
+69;Nova Porteirinha;http://novaporteirinha-mg.vivver.com
+70;Novo Cruzeiro;http://www.novocruzeiro-mg.vivver.com
+71;Olaria;http://olaria-mg.vivver.com
+72;Olhos dagua;http://www.olhosdagua-mg.vivver.com
+73;Ouro Branco;http://www.ourobranco-mg.vivver.com
+74;Paracatu;http://www.paracatu-mg.vivver.com
+75;Paraguacu;http://www.paraguacu-mg.vivver.com
+76;Passos;http://www.passos-mg.vivver.com
+77;Patis;http://www.patis-mg.vivver.com
+78;Patos de Minas;http://www.patosdeminas-mg.vivver.com
+79;Pecanha;http://www.pecanha-mg.vivver.com
+80;Pintopolis;http://www.pintopolis-mg.vivver.com
+81;Pirapora;http://pirapora-mg.vivver.com
+82;Pitangueiras;http://www.pitangueiras-sp.vivver.com
+83;Piumhi;http://www.piumhi-mg.vivver.com
+84;Poco Fundo;http://www.pocofundo-mg.vivver.com
+85;Pompeu;http://www.pompeu-mg.vivver.com
+86;Ponto dos Volantes;http://www.pontodosvolantes-mg.vivver.com
+87;Pouso Alegre;http://www.pousoalegre-mg.vivver.com
+88;Rio Doce;http://www.riodoce-mg.vivver.com
+89;Rio Pardo de Minas;http://www.riopardodeminas-mg.vivver.com
+90;Salinas;http://www.salinas-mg.vivver.com
+91;Santa Barbara;http://www.santabarbara-mg.vivver.com
+92;Santa Cruz do Escalvado;http://santacruzdoescalvado-mg.vivver.com
+93;Santa Margarida;http://www.santamargarida-mg.vivver.com
+94;Santo Antonio do Monte;http://www.santoantoniodomonte-mg.vivver.com
+95;Sao Joao da Ponte;http://saojoaodaponte-mg.vivver.com
+96;Sao Joao Nepomuceno;http://www.saojoaonepomuceno-mg.vivver.com
+97;Sao Lourenco;http://saolourenco-mg.vivver.com
+98;Sao Romao;http://saoromao-mg.vivver.com
+99;Sao Sebastiao do Oeste;http://www.saosebastiaodooeste-mg.vivver.com
+100;Sao Sebastiao do Paraiso;http://www.saosebastiaodoparaiso-mg.vivver.com
+101;Sarzedo;http://www.sarzedo-mg.vivver.com
+102;Serrania;http://www.serrania-mg.vivver.com
+103;Sete Lagoas;http://www.setelagoas-mg.vmx.io
+104;Simao Pereira;http://simaopereira-mg.vivver.com
+105;Sorocaba;http://sisweb.sorocaba.sp.gov.br
+106;Taiobeiras;http://www.taiobeiras-mg.vivver.com
+107;Timoteo;http://timoteo-mg.vivver.com
+108;Ubai;http://www.ubai-mg.vivver.com
+109;Urucania;http://www.urucania-mg.vivver.com
+110;Varzea da palma;http://www.varzeadapalma-mg.vivver.com
+111;Vieiras;http://vieiras-mg.vivver.com
