@@ -26,6 +26,8 @@ public class GUIteste {
 	String lentidao = "Host lento";
 	String original = "";
 	
+	public volatile boolean flag = true;
+	
 	JTextPane tp = new JTextPane();
 	URL url;
 	JScrollPane scroll = new JScrollPane();
@@ -50,15 +52,17 @@ public class GUIteste {
 			JLabel label2 = new JLabel("Verificador de Status", SwingConstants.CENTER);
 			JLabel label3 = new JLabel("Clientes", SwingConstants.CENTER);
 			JLabel labelB = new JLabel();
+			JLabel labelC = new JLabel();
 			JButton button1 = new JButton("Verificação por ping");
-			JButton button3 = new JButton("Verificação por HTTP");
 			JButton button2 = new JButton("Limpar");
+			JButton button3 = new JButton("Verificação por HTTP");
+			JButton button4 = new JButton("Inserir cliente");
 			JScrollPane scroll2 = new JScrollPane(tp);
 			tp.setBackground(null);
 				tp.setBorder(new EmptyBorder(10,10,10,10));
 		//</Declaration>
 		//<Test single ping>
-			pingOneCheck();
+			listCheck();
 		//</Test single ping>
 		//<Button 1>
 			button1.setVisible(true);
@@ -84,7 +88,7 @@ public class GUIteste {
 				public void actionPerformed(ActionEvent e) {				
 					if(e.getSource()==button1) {
 						tp.setText("");
-						pingCheck();
+						new Thread(t1).start();
 					}
 				}
 			});
@@ -136,15 +140,35 @@ public class GUIteste {
 				public void actionPerformed(ActionEvent e) {
 					if(e.getSource()==button3) {
 						tp.setText("");
-						try {
-							httpCheck();
-						} catch (IOException e1) {
-							e1.printStackTrace();
-						}
+						new Thread(t2).start();
 					}
 				}
 			});
 		//</Button 3>
+		//<Button 4>
+			button4.setVisible(true);
+			button4.setFocusable(false);
+			button4.setFont(new Font("Arial", Font.BOLD, 18));
+			button4.setForeground(new Color(0xeeeeee));
+			button4.setBackground(new Color(0x01659e));
+			button4.setCursor(new Cursor(Cursor.HAND_CURSOR));
+			button4.setBorder(new EmptyBorder(10,0,10,0));
+			button4.addMouseListener(new java.awt.event.MouseAdapter() {
+				public void mouseEntered(java.awt.event.MouseEvent evt) {
+					button4.setBackground(new Color(0x259821));
+				}
+				public void mouseExited(java.awt.event.MouseEvent evt) {
+					button4.setBackground(new Color(0x01659e));
+				}
+			});
+			button4.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if(e.getSource()==button4) {
+						new insert();
+					}
+				}
+			});
+		//</Button 4>
 		//<Scroll>
 			scroll.setPreferredSize(new Dimension(20,0));
 			scroll.setBorder(BorderFactory.createEmptyBorder());
@@ -168,11 +192,18 @@ public class GUIteste {
 			labelB.add(button3, BorderLayout.EAST);
 			labelB.setPreferredSize(new Dimension(800,40));
 		//</Label B>
+		//<Label C>
+			labelC.setLayout(new BorderLayout());
+			labelC.add(button4, BorderLayout.CENTER);
+			labelC.setPreferredSize(new Dimension(200,40));
+			labelC.setBorder(BorderFactory.createEmptyBorder(0,0,5,0));
+		//</Label C>
 		//<Panel 5>
 			panel5.setBorder(new EmptyBorder(5,5,0,5));
 			panel5.setBackground(new Color(0xcccccc));
 			panel5.setLayout(new BorderLayout());
 			panel5.add(scroll, BorderLayout.CENTER);
+			panel5.add(labelC, BorderLayout.SOUTH);
 		//</Panel 5>
 		//<Panel 0>
 			panel0.setBackground(new Color(0x01659e));
@@ -245,7 +276,23 @@ public class GUIteste {
 		//</Frame>
 	}
 	
-	private void appendToPane(JTextPane tp, String msg, Color c){
+	public Runnable t1 = new Runnable() {
+		public void run() {
+			pingCheck();
+		}
+	};
+	
+	public Runnable t2 = new Runnable() {
+		public void run() {
+			try {
+				httpCheck();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	};
+
+ 	private void appendToPane(JTextPane tp, String msg, Color c){
         StyleContext sc = StyleContext.getDefaultStyleContext();
         StyledDocument doc = tp.getStyledDocument();
         AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
@@ -267,7 +314,7 @@ public class GUIteste {
 		}
     }
 	
-	private void pingOneCheck(){
+	private void listCheck(){
 		File arquivo1 = new File("clientes.csv");
 		try {
 			if(!arquivo1.exists()){
@@ -301,6 +348,38 @@ public class GUIteste {
 									int partInt = Integer.parseInt(parts[0]);
 									if((index + 1) == partInt) {
 										URL url = new URL(parts[2]);
+										HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+										connection.setRequestMethod("GET");
+										connection.connect();
+								
+										int code = connection.getResponseCode();
+										String string = connection.getResponseMessage();
+										
+										//String codeS = String.valueOf(code);
+										
+										if(code == 200 || code == 301) {
+											if(url.toString().length() < 70) {
+												int numPontos = 70 - url.toString().length();
+												
+												char c = '.';
+												
+												char[] repeat = new char[numPontos];
+												Arrays.fill(repeat, c);
+												original = new String(repeat);
+												appendToPane(tp, url + "  " + original + " " + string + "\n\n", new Color(0x259821));
+											}
+										}else {
+											if(url.toString().length() < 70) {
+												int numPontos = 70 - url.toString().length();
+												
+												char c = '.';
+												
+												char[] repeat = new char[numPontos];
+												Arrays.fill(repeat, c);
+												original = new String(repeat);
+												appendToPane(tp, url + "  " + original + " " + string + "\n\n", Color.red);
+											}
+										}
 										try {
 											InetAddress endereco = InetAddress.getByName(url.getHost());
 											String temp = endereco.toString();
@@ -384,7 +463,7 @@ public class GUIteste {
 						Arrays.fill(repeat, c);
 						original = new String(repeat);
 						//System.out.print(url + "  " + original + " " + sucesso);
-						//appendToPane(tp, url + "  " + original + " " + sucesso, new Color(0x259821));
+						appendToPane(tp, url + "  " + original + " " + sucesso, new Color(0x259821));
 					}
 					else {
 						System.out.print(url);
